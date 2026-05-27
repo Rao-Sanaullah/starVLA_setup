@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StarVLA — Installation Guide</title>
+<style>
+[data-theme="dark"]{
+  --bg:#0f1117;--surface:#1a1d27;--card:#22263a;--border:#2e3450;
+  --accent:#6c63ff;--accent2:#00d4aa;--text:#e2e8f0;--muted:#64748b;
+  --success:#10b981;--warn:#f59e0b;--danger:#ef4444;--code-bg:#0d1117;
+  --shadow:rgba(0,0,0,.4);--tog-bg:#22263a;--tog-icon:"☀";
+}
+[data-theme="light"]{
+  --bg:#f8fafc;--surface:#ffffff;--card:#ffffff;--border:#e2e8f0;
+  --accent:#5b52f0;--accent2:#0891b2;--text:#0f172a;--muted:#64748b;
+  --success:#059669;--warn:#d97706;--danger:#dc2626;--code-bg:#1e293b;
+  --shadow:rgba(0,0,0,.08);--tog-bg:#e2e8f0;--tog-icon:"🌙";
+}
+*{margin:0;padding:0;box-sizing:border-box;transition:background-color .25s,color .25s,border-color .25s;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+
+/* Nav */
+nav{background:var(--surface);border-bottom:1px solid var(--border);padding:13px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px var(--shadow);}
+.nav-left{display:flex;align-items:center;gap:32px;}
+.nav-logo{font-size:1.1rem;font-weight:700;color:var(--accent);}
+.nav-links{display:flex;gap:18px;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.86rem;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.tog{background:var(--tog-bg);border:1px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-size:.8rem;color:var(--text);display:flex;align-items:center;gap:6px;transition:all .2s;}
+.tog:hover{border-color:var(--accent);}
+
+/* Hero */
+.hero{padding:68px 40px;text-align:center;border-bottom:1px solid var(--border);}
+.hero h1{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#6c63ff,#00d4aa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
+.hero p{font-size:.95rem;color:var(--muted);max-width:560px;margin:0 auto 22px;}
+.badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.badge{padding:3px 11px;border-radius:20px;font-size:.73rem;font-weight:600;border:1px solid;}
+[data-theme="dark"] .b-blue{color:#93c5fd;border-color:#2563eb;background:rgba(37,99,235,.12);}
+[data-theme="dark"] .b-green{color:#6ee7b7;border-color:#059669;background:rgba(5,150,105,.12);}
+[data-theme="dark"] .b-purple{color:#c4b5fd;border-color:#7c3aed;background:rgba(124,58,237,.12);}
+[data-theme="light"] .b-blue{color:#1d4ed8;border-color:#93c5fd;background:rgba(37,99,235,.08);}
+[data-theme="light"] .b-green{color:#065f46;border-color:#6ee7b7;background:rgba(5,150,105,.08);}
+[data-theme="light"] .b-purple{color:#4c1d95;border-color:#c4b5fd;background:rgba(124,58,237,.08);}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:210px 1fr;gap:40px;max-width:1060px;margin:0 auto;padding:52px 40px;}
+.sidebar{position:sticky;top:72px;height:fit-content;}
+.sb-sec{margin-bottom:20px;}
+.sb-sec h4{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;}
+.sb-sec a{display:block;padding:5px 10px;border-radius:6px;color:var(--muted);text-decoration:none;font-size:.82rem;transition:all .2s;border-left:2px solid transparent;}
+.sb-sec a:hover,.sb-sec a.active{color:var(--accent);background:var(--card);border-left-color:var(--accent);}
+[data-theme="light"] .sb-sec a:hover,[data-theme="light"] .sb-sec a.active{background:#f1f5f9;}
+
+/* Content */
+.content section{margin-bottom:52px;}
+.content h2{font-size:1.45rem;font-weight:700;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.content h3{font-size:.97rem;font-weight:600;color:var(--accent2);margin:22px 0 9px;}
+.content p{color:var(--muted);margin-bottom:12px;font-size:.9rem;}
+.content ul,.content ol{color:var(--muted);padding-left:18px;margin-bottom:12px;font-size:.9rem;}
+.content li{margin-bottom:5px;}
+
+/* Code */
+.cb{background:var(--code-bg);border:1px solid var(--border);border-radius:10px;margin:12px 0;overflow:hidden;}
+.ch{background:var(--surface);padding:7px 14px;font-size:.7rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+[data-theme="light"] .ch{background:#f1f5f9;}
+.ch .lang{color:var(--accent);font-weight:600;}
+.cpb{background:none;border:1px solid var(--border);color:var(--muted);padding:2px 8px;border-radius:4px;cursor:pointer;font-size:.68rem;}
+.cpb:hover{color:var(--accent);border-color:var(--accent);}
+pre{padding:16px;overflow-x:auto;font-family:'JetBrains Mono','Fira Code',monospace;font-size:.81rem;line-height:1.65;color:#e2e8f0;}
+.cm{color:#6b7280;}.cg{color:#86efac;}.ck{color:#93c5fd;}
+
+/* Info boxes */
+.ib{border-radius:10px;padding:13px 17px;margin:13px 0;border-left:4px solid;}
+.ib.tip{background:rgba(16,185,129,.07);border-color:var(--success);}
+.ib.warn{background:rgba(245,158,11,.07);border-color:var(--warn);}
+.ib.note{background:rgba(108,99,255,.07);border-color:var(--accent);}
+[data-theme="light"] .ib.tip{background:rgba(5,150,105,.06);}
+[data-theme="light"] .ib.warn{background:rgba(217,119,6,.06);}
+[data-theme="light"] .ib.note{background:rgba(91,82,240,.06);}
+.ib .bt{font-weight:700;font-size:.8rem;margin-bottom:3px;}
+.ib.tip .bt{color:var(--success);}.ib.warn .bt{color:var(--warn);}.ib.note .bt{color:var(--accent);}
+.ib p{color:var(--muted);margin:0;font-size:.86rem;}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:.85rem;}
+.tbl th{background:var(--card);color:var(--text);padding:9px 13px;text-align:left;font-weight:600;border-bottom:2px solid var(--border);}
+[data-theme="light"] .tbl th{background:#f1f5f9;}
+.tbl td{padding:9px 13px;color:var(--muted);border-bottom:1px solid var(--border);}
+.tbl tr:hover td{background:var(--card);}
+[data-theme="light"] .tbl tr:hover td{background:#f8fafc;}
+.tbl code{background:var(--code-bg);padding:1px 5px;border-radius:3px;font-size:.78rem;color:var(--accent2);}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:13px;}
+.tab{padding:7px 17px;border-radius:8px 8px 0 0;cursor:pointer;font-size:.83rem;color:var(--muted);border:1px solid transparent;border-bottom:none;transition:all .2s;}
+.tab.active{background:var(--card);color:var(--text);border-color:var(--border);}
+[data-theme="light"] .tab.active{background:#f1f5f9;}
+.tab-content{display:none;}.tab-content.active{display:block;}
+
+/* Official banner */
+.ob{background:rgba(108,99,255,.07);border:1px solid rgba(108,99,255,.25);border-radius:10px;padding:15px 18px;margin-bottom:30px;display:flex;align-items:center;gap:14px;}
+[data-theme="light"] .ob{background:rgba(91,82,240,.05);border-color:rgba(91,82,240,.2);}
+.ob p{color:var(--muted);font-size:.86rem;margin:0;}
+.ob a{color:var(--accent);text-decoration:none;font-weight:600;}
+
+@media(max-width:768px){.layout{grid-template-columns:1fr;}.sidebar{display:none;}.hero h1{font-size:1.8rem;}nav{padding:12px 20px;}.nav-links{display:none;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">StarVLA — Setup</div>
+    <div class="nav-links">
+      <a href="#requirements">Requirements</a>
+      <a href="#installation">Installation</a>
+      <a href="#server">Server</a>
+      <a href="#inference">Inference</a>
+      <a href="#finetuning">Fine-tuning</a>
+      <a href="https://yourname.github.io/starvla-results">Results</a>
+    </div>
+  </div>
+  <button class="tog" onclick="toggleTheme()" id="tog-btn">☀ Light mode</button>
+</nav>
+
+<div class="hero">
+  <h1>StarVLA Installation Guide</h1>
+  <p>Step-by-step setup for running StarVLA on the Robotis SG2 AI Worker with NVIDIA IsaacLab simulation.</p>
+  <div class="badge-row">
+    <span class="badge b-blue">Python 3.10+</span>
+    <span class="badge b-green">CUDA 12.8+</span>
+    <span class="badge b-purple">PyTorch 2.12+</span>
+    <span class="badge b-blue">RTX 5090 32GB</span>
+    <span class="badge b-green">Ubuntu 22.04</span>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-sec">
+      <h4>Getting started</h4>
+      <a href="#requirements">Requirements</a>
+      <a href="#installation">Installation</a>
+      <a href="#dataset">Dataset</a>
+    </div>
+    <div class="sb-sec">
+      <h4>Fine-tuning</h4>
+      <a href="#finetuning">Fine-tuning</a>
+      <a href="#checkpoints">Checkpoints</a>
+    </div>
+    <div class="sb-sec">
+      <h4>Deployment</h4>
+      <a href="#server">Policy server</a>
+      <a href="#inference">Inference bridge</a>
+      <a href="#gui">Web GUI</a>
+    </div>
+    <div class="sb-sec">
+      <h4>Links</h4>
+      <a href="https://github.com/starVLA/starVLA" target="_blank">Official repo ↗</a>
+      <a href="https://yourname.github.io/starvla-results">Results page</a>
+      <a href="#">Paper</a>
+    </div>
+  </aside>
+
+  <div class="content">
+
+    <div class="ob">
+      <div style="font-size:1.6rem">⭐</div>
+      <div>
+        <p><strong style="color:var(--text)">Official StarVLA repository</strong></p>
+        <p>This guide is based on the official StarVLA codebase by the HKUST team. Clone from <a href="https://github.com/starVLA/starVLA" target="_blank">github.com/starVLA/starVLA</a>. This page documents deployment on the Robotis SG2 AI Worker in NVIDIA IsaacLab.</p>
+      </div>
+    </div>
+
+    <section id="requirements">
+      <h2>Requirements</h2>
+      <table class="tbl">
+        <tr><th>Component</th><th>Version</th><th>Notes</th></tr>
+        <tr><td>Python</td><td><code>3.10+</code></td><td>Tested on 3.10.12</td></tr>
+        <tr><td>PyTorch</td><td><code>2.12.0+</code></td><td>CUDA 12.8 build</td></tr>
+        <tr><td>CUDA driver</td><td><code>580+</code></td><td>CUDA 13.0 runtime</td></tr>
+        <tr><td>GPU VRAM</td><td>32 GB recommended</td><td>RTX 5090 tested, 16 GB minimum</td></tr>
+        <tr><td>RAM</td><td>64 GB+</td><td>For dataset loading</td></tr>
+        <tr><td>Storage</td><td>200 GB+</td><td>Models + dataset + checkpoints</td></tr>
+        <tr><td>OS</td><td>Ubuntu 22.04</td><td>ROS2 Humble base</td></tr>
+      </table>
+      <div class="ib warn">
+        <div class="bt">GPU memory note</div>
+        <p>The policy server loads Qwen2.5-VL-3B (3B params) plus the DiT-B action head (150M params). With bfloat16 this requires ~16 GB VRAM. 32 GB is recommended for stable 60 Hz inference alongside IsaacLab.</p>
+      </div>
+    </section>
+
+    <section id="installation">
+      <h2>Installation</h2>
+      <h3>1. Clone the official repository</h3>
+      <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+      <pre><code>git clone https://github.com/starVLA/starVLA
+cd starVLA</code></pre></div>
+      <h3>2. Create Python environment</h3>
+      <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+      <pre><code>conda create -n starvla python=3.10 -y
+conda activate starvla</code></pre></div>
+      <h3>3. Install PyTorch with CUDA 12.8</h3>
+      <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+      <pre><code>pip install torch==2.12.0 torchvision==0.27.0 \
+    --index-url https://download.pytorch.org/whl/cu128</code></pre></div>
+      <h3>4. Install StarVLA</h3>
+      <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+      <pre><code>pip install -r requirements.txt
+pip install -e .</code></pre></div>
+      <h3>5. Install deployment dependencies</h3>
+      <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+      <pre><code>pip install transformers==4.57.0 accelerate==1.5.2 \
+            deepspeed==0.16.9 websockets==16.0 \
+            msgpack==1.1.2 av==12.3.0 qwen-vl-utils \
+            omegaconf==2.3.0 fastapi uvicorn \
+            opencv-python-headless matplotlib pandas pyarrow</code></pre></div>
+      <div class="ib tip"><div class="bt">Verify</div>
+      <p>Run <code>python -c "import starVLA; print('OK')"</code> to confirm the package installed correctly.</p></div>
+    </section>
+
+    <section id="dataset">
+      <h2>Dataset structure</h2>
+      <div class="cb"><div class="ch"><span class="lang">text</span></div>
+      <pre><code>dataset/
+├── meta/
+│   ├── info.json           <span class="cm"># episodes, fps, features</span>
+│   ├── modality.json       <span class="cm"># joint group layout</span>
+│   └── stats_gr00t.json    <span class="cm"># normalization stats</span>
+├── data/
+│   ├── chunk-000/
+│   │   ├── episode_000000.parquet
+│   │   └── ...
+│   └── chunk-001/
+└── videos/
+    └── chunk-000/
+        └── observation.images.cam_head/
+            ├── episode_000000.mp4
+            └── ...</code></pre></div>
+      <table class="tbl">
+        <tr><th>Field</th><th>Shape</th><th>Description</th></tr>
+        <tr><td><code>action</code></td><td>(19,)</td><td>Joint position targets — float32</td></tr>
+        <tr><td><code>observation.state</code></td><td>(19,)</td><td>Current joint positions — float32</td></tr>
+        <tr><td><code>observation.images.cam_head</code></td><td>376×672×3</td><td>RGB video @ 10 fps — AV1 codec</td></tr>
+        <tr><td><code>task_index</code></td><td>int64</td><td>Task identifier</td></tr>
+      </table>
+      <div class="ib note"><div class="bt">Video codec</div>
+      <p>Videos use AV1 encoding. Use PyAV (<code>pip install av==12.3.0</code>) for decoding — OpenCV does not support AV1 without hardware acceleration.</p></div>
+    </section>
+
+    <section id="finetuning">
+      <h2>Fine-tuning</h2>
+      <p>StarVLA fine-tuning uses PyTorch + Accelerate + DeepSpeed. The VLM backbone is frozen — only the DiT-B action head is trained.</p>
+      <div class="tabs">
+        <div class="tab active" onclick="st(this,'t-ns')">State-free (recommended)</div>
+        <div class="tab" onclick="st(this,'t-s')">State-conditioned</div>
+      </div>
+      <div id="t-ns" class="tab-content active">
+        <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+        <pre><code>PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+accelerate launch \
+  --config_file starVLA/config/deepseeds/deepspeed_zero2.yaml \
+  starVLA/training/train_starvla.py \
+  --config_yaml starVLA/config/training/starvla_cotrain_libero.yaml \
+  --run_id ffw_sg2_nostate \
+  --datasets.vla_data.data_root_dir /path/to/dataset \
+  --datasets.vla_data.data_mix ffw_sg2 \
+  --trainer.max_train_steps 400000 \
+  --trainer.freeze_modules qwen_vl_interface</code></pre></div>
+        <div class="ib tip"><div class="bt">Optimal checkpoint: 200,000 steps</div>
+        <p>Beyond 200k the model overfits to training positions. Use <code>steps_200000_pytorch_model.pt</code> for deployment.</p></div>
+      </div>
+      <div id="t-s" class="tab-content">
+        <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+        <pre><code>PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+accelerate launch \
+  --config_file starVLA/config/deepseeds/deepspeed_zero2.yaml \
+  starVLA/training/train_starvla.py \
+  --config_yaml starVLA/config/training/starvla_cotrain_libero.yaml \
+  --run_id ffw_sg2_state \
+  --datasets.vla_data.data_root_dir /path/to/dataset \
+  --datasets.vla_data.data_mix ffw_sg2 \
+  --framework.action_model.state_dim 38 \
+  --trainer.max_train_steps 400000 \
+  --trainer.freeze_modules qwen_vl_interface</code></pre></div>
+        <div class="ib warn"><div class="bt">Optimal checkpoint: 30,000 steps</div>
+        <p>The model degrades rapidly after 30k steps. Use <code>steps_30000_pytorch_model.pt</code> for deployment.</p></div>
+      </div>
+      <h3>Training configuration</h3>
+      <table class="tbl">
+        <tr><th>Hyperparameter</th><th>State-free</th><th>State-conditioned</th></tr>
+        <tr><td>Training steps</td><td>400,000</td><td>400,000</td></tr>
+        <tr><td>Optimal eval checkpoint</td><td>200,000</td><td>30,000</td></tr>
+        <tr><td>Warmup steps</td><td>2,000</td><td>2,000</td></tr>
+        <tr><td>Gradient accumulation</td><td>4</td><td>4</td></tr>
+        <tr><td>Action head LR</td><td>1×10⁻⁴</td><td>1×10⁻⁴</td></tr>
+        <tr><td>VLM backbone LR</td><td>1×10⁻⁵</td><td>1×10⁻⁵</td></tr>
+        <tr><td>State dim</td><td>19 (unused)</td><td>38 (sin-cos)</td></tr>
+        <tr><td>Precision</td><td>bfloat16</td><td>float32</td></tr>
+        <tr><td>Hardware</td><td colspan="2">1× NVIDIA RTX 5090 32GB</td></tr>
+      </table>
+    </section>
+
+    <section id="checkpoints">
+      <h2>Checkpoint structure</h2>
+      <div class="cb"><div class="ch"><span class="lang">text</span></div>
+      <pre><code>results/Checkpoints/
+├── ffw_sg2_400k_nostate_v2/
+│   ├── config.yaml
+│   ├── dataset_statistics.json
+│   ├── checkpoints/
+│   │   ├── steps_5000_pytorch_model.pt
+│   │   ├── ...
+│   │   └── steps_400000_pytorch_model.pt
+│   └── final_model/pytorch_model.pt
+└── ffw_sg2_400k_state_fp32/
+    └── <span class="cm"># same structure</span></code></pre></div>
+    </section>
+
+    <section id="server">
+      <h2>Policy server</h2>
+      <p>The policy server hosts the StarVLA model and exposes a WebSocket endpoint. The inference bridge connects to this server to request action chunks.</p>
+      <div class="tabs">
+        <div class="tab active" onclick="st(this,'sv-ns')">State-free server</div>
+        <div class="tab" onclick="st(this,'sv-s')">State-conditioned server</div>
+      </div>
+      <div id="sv-ns" class="tab-content active">
+        <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+        <pre><code>pkill -f server_policy && sleep 3
+python deployment/model_server/server_policy.py \
+    --ckpt_path results/Checkpoints/ffw_sg2_400k_nostate_v2/\
+checkpoints/steps_200000_pytorch_model.pt \
+    --port 5555 \
+    --use_bf16</code></pre></div>
+      </div>
+      <div id="sv-s" class="tab-content">
+        <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+        <pre><code>pkill -f server_policy && sleep 3
+<span class="cm"># No --use_bf16 — state model trained in float32</span>
+python deployment/model_server/server_policy.py \
+    --ckpt_path results/Checkpoints/ffw_sg2_400k_state_fp32/\
+checkpoints/steps_30000_pytorch_model.pt \
+    --port 5555</code></pre></div>
+      </div>
+      <div class="ib tip"><div class="bt">Server ready</div>
+      <p>Look for <code>INFO: server listening on 0.0.0.0:5555</code>. The WebSocket handshake error on first connect is normal.</p></div>
+      <table class="tbl">
+        <tr><th>Argument</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>--ckpt_path</code></td><td>required</td><td>Path to .pt checkpoint</td></tr>
+        <tr><td><code>--port</code></td><td>10093</td><td>WebSocket port</td></tr>
+        <tr><td><code>--use_bf16</code></td><td>False</td><td>bfloat16 — use for nostate model only</td></tr>
+        <tr><td><code>--idle_timeout</code></td><td>1800</td><td>Seconds before idle shutdown</td></tr>
+      </table>
+    </section>
+
+    <section id="inference">
+      <h2>IsaacLab inference bridge</h2>
+      <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+      <pre><code>cd /workspace/robotis_lab
+python scripts/inference/starvla_inference.py \
+    --task RobotisSG2-PaintBrush-v0 \
+    --starvla_host 172.17.0.2 \
+    --starvla_port 5555 \
+    --step_hz 60 \
+    --chunk_size 16</code></pre></div>
+      <table class="tbl">
+        <tr><th>Argument</th><th>Default</th><th>Description</th></tr>
+        <tr><td><code>--task</code></td><td>required</td><td>IsaacLab task name</td></tr>
+        <tr><td><code>--starvla_host</code></td><td>172.17.0.2</td><td>Policy server host IP</td></tr>
+        <tr><td><code>--starvla_port</code></td><td>5555</td><td>WebSocket port</td></tr>
+        <tr><td><code>--step_hz</code></td><td>60</td><td>Control rate in Hz</td></tr>
+        <tr><td><code>--chunk_size</code></td><td>16</td><td>Action chunk length in steps</td></tr>
+        <tr><td><code>--robot_type</code></td><td>FFW_SG2</td><td>Robot platform</td></tr>
+      </table>
+      <div class="ib note"><div class="bt">Three terminals required</div>
+      <p>Terminal 1: policy server · Terminal 2: inference bridge · Terminal 3: web GUI. Start in this order.</p></div>
+    </section>
+
+    <section id="gui">
+      <h2>Web GUI</h2>
+      <div class="cb"><div class="ch"><span class="lang">bash</span><button class="cpb" onclick="cp(this)">Copy</button></div>
+      <pre><code>python scripts/server.py
+<span class="cm"># Open: http://localhost:8000</span></code></pre></div>
+      <table class="tbl">
+        <tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
+        <tr><td><code>/api/task</code></td><td>POST</td><td>Submit task language instruction</td></tr>
+        <tr><td><code>/api/reset</code></td><td>POST</td><td>Reset IsaacLab environment</td></tr>
+        <tr><td><code>/api/stop</code></td><td>POST</td><td>Stop current execution</td></tr>
+        <tr><td><code>/api/status</code></td><td>GET</td><td>Current robot status</td></tr>
+        <tr><td><code>/ws</code></td><td>WebSocket</td><td>Real-time status updates</td></tr>
+      </table>
+      <div class="ib note"><div class="bt">Task IPC</div>
+      <p>GUI writes to <code>/tmp/groot_task.txt</code>. The inference loop polls this file every step. <code>__RESET__</code> and <code>__STOP__</code> are special control commands.</p></div>
+    </section>
+
+  </div>
+</div>
+
+<div style="padding:28px 40px;text-align:center;color:var(--muted);font-size:.79rem;border-top:1px solid var(--border)">
+  <p>Based on <a href="https://github.com/starVLA/starVLA" style="color:var(--accent);text-decoration:none">StarVLA</a> by the HKUST team · Deployed on Robotis SG2 AI Worker · NVIDIA IsaacLab</p>
+  <p style="margin-top:5px">
+    <a href="https://github.com/starVLA/starVLA" style="color:var(--accent);text-decoration:none;margin:0 9px">Official repo ↗</a>
+    <a href="https://yourname.github.io/starvla-results" style="color:var(--accent);text-decoration:none;margin:0 9px">Results page</a>
+    <a href="#" style="color:var(--accent);text-decoration:none;margin:0 9px">Paper</a>
+  </p>
+</div>
+
+<script>
+function cp(btn){const p=btn.closest('.cb').querySelector('pre');navigator.clipboard.writeText(p.innerText);btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',2000);}
+function st(tab,id){const s=tab.closest('section')||document;s.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));s.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));tab.classList.add('active');document.getElementById(id).classList.add('active');}
+function toggleTheme(){const h=document.documentElement;const isDark=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',isDark?'light':'dark');document.getElementById('tog-btn').textContent=isDark?'🌙 Dark mode':'☀ Light mode';localStorage.setItem('theme',isDark?'light':'dark');}
+(function(){const t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('tog-btn').textContent=t==='light'?'🌙 Dark mode':'☀ Light mode';}})();
+const secs=document.querySelectorAll('section[id]');const lnks=document.querySelectorAll('.sb-sec a');
+window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id;});lnks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur);});});
+</script>
+</body>
+</html>

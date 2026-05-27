@@ -2,12 +2,12 @@
 
 Installation and deployment guide for running [StarVLA](https://github.com/starVLA/starVLA) on the Robotis SG2 AI Worker with NVIDIA IsaacLab simulation.
 
-> Full guide: **[yourname.github.io/starvla-setup](https://yourname.github.io/starvla-setup)**
+> Full guide: **[https://rao-sanaullah.github.io/starVLA_setup/](https://rao-sanaullah.github.io/starVLA_setup/)**
 
 ## Quick links
 
 - [Official StarVLA repository](https://github.com/starVLA/starVLA)
-- [Full installation guide](https://yourname.github.io/starvla-setup)
+- [Full installation guide](https://rao-sanaullah.github.io/starVLA_setup/)
 - [Project results](https://yourname.github.io/starvla-results)
 - [Paper](#)
 
@@ -44,7 +44,7 @@ python scripts/inference/starvla_inference.py \
     --starvla_port 5555
 ```
 
-See the [full guide](https://yourname.github.io/starvla-setup) for complete setup, fine-tuning, and configuration details.
+See the [full guide](https://rao-sanaullah.github.io/starVLA_setup/) for complete setup, fine-tuning, and configuration details.
 
 ---
 
